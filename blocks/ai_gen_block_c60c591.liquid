@@ -1,0 +1,289 @@
+{% doc %}
+  @prompt
+    Fix a bug where the variant picker block is not syncing the selected variant to the add-to-cart button. When a customer selects a variant using the variant picker buttons, the cart always adds the first/default variant instead of the selected one. The fix should ensure that when a variant button is clicked, it updates the hidden variant ID input in the cart form so the correct variant gets added to the cart. The variant picker block ID is ai_gen_block_89d4d1c_i3Dc68 and the buy buttons block ID is buy_buttons_dPDJAL, both inside section featured_product_information_xCkBAH.
+{% enddoc %}
+{% assign ai_gen_id = block.id | replace: '_', '' | downcase %}
+
+{% style %}
+  .ai-variant-picker-{{ ai_gen_id }} {
+    display: block;
+    width: 100%;
+  }
+
+  .ai-variant-picker__option-{{ ai_gen_id }} {
+    margin-bottom: 20px;
+  }
+
+  .ai-variant-picker__label-{{ ai_gen_id }} {
+    display: block;
+    margin-bottom: 10px;
+    font-weight: 600;
+    font-size: 14px;
+    text-transform: uppercase;
+  }
+
+  .ai-variant-picker__buttons-{{ ai_gen_id }} {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+  }
+
+  .ai-variant-picker__button-{{ ai_gen_id }} {
+    padding: 12px 20px;
+    border: {{ settings.variant_button_border_width }}px solid {{ settings.color_schemes[block.settings.color_scheme].settings.variant_border_color }};
+    background-color: {{ settings.color_schemes[block.settings.color_scheme].settings.variant_background_color }};
+    color: {{ settings.color_schemes[block.settings.color_scheme].settings.variant_text_color }};
+    border-radius: {{ settings.variant_button_radius }}px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    font-size: 14px;
+    {% if settings.variant_button_width == 'equal-width-buttons' %}
+      flex: 1;
+      min-width: 80px;
+    {% endif %}
+  }
+
+  .ai-variant-picker__button-{{ ai_gen_id }}:hover {
+    background-color: {{ settings.color_schemes[block.settings.color_scheme].settings.variant_hover_background_color }};
+    color: {{ settings.color_schemes[block.settings.color_scheme].settings.variant_hover_text_color }};
+    border-color: {{ settings.color_schemes[block.settings.color_scheme].settings.variant_hover_border_color }};
+  }
+
+  .ai-variant-picker__button-{{ ai_gen_id }}.selected {
+    background-color: {{ settings.color_schemes[block.settings.color_scheme].settings.selected_variant_background_color }};
+    color: {{ settings.color_schemes[block.settings.color_scheme].settings.selected_variant_text_color }};
+    border-color: {{ settings.color_schemes[block.settings.color_scheme].settings.selected_variant_border_color }};
+  }
+
+  .ai-variant-picker__button-{{ ai_gen_id }}.selected:hover {
+    background-color: {{ settings.color_schemes[block.settings.color_scheme].settings.selected_variant_hover_background_color }};
+    color: {{ settings.color_schemes[block.settings.color_scheme].settings.selected_variant_hover_text_color }};
+    border-color: {{ settings.color_schemes[block.settings.color_scheme].settings.selected_variant_hover_border_color }};
+  }
+
+  .ai-variant-picker__button-{{ ai_gen_id }}:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+  }
+{% endstyle %}
+
+<variant-picker-{{ ai_gen_id }}
+  class="ai-variant-picker-{{ ai_gen_id }}"
+  data-section="{{ section.id }}"
+  data-product-id="{{ product.id }}"
+  {{ block.shopify_attributes }}
+>
+  {% unless product.has_only_default_variant %}
+    {% for option in product.options_with_values %}
+      <div class="ai-variant-picker__option-{{ ai_gen_id }}">
+        <label class="ai-variant-picker__label-{{ ai_gen_id }}">
+          {{ option.name }}
+        </label>
+        <div class="ai-variant-picker__buttons-{{ ai_gen_id }}">
+          {% for value in option.values %}
+            <button
+              type="button"
+              class="ai-variant-picker__button-{{ ai_gen_id }} {% if option.selected_value == value %}selected{% endif %}"
+              data-option-position="{{ option.position }}"
+              data-option-value="{{ value | escape }}"
+            >
+              {{ value }}
+            </button>
+          {% endfor %}
+        </div>
+      </div>
+    {% endfor %}
+  {% endunless %}
+</variant-picker-{{ ai_gen_id }}>
+
+<script>
+  (function() {
+    class VariantPicker{{ ai_gen_id }} extends HTMLElement {
+      constructor() {
+        super();
+        this.productId = this.dataset.productId;
+        this.sectionId = this.dataset.section;
+        this.selectedOptions = {};
+        this.variants = [];
+      }
+
+      connectedCallback() {
+        this.fetchProductData();
+        this.setupEventListeners();
+        this.initializeSelectedOptions();
+      }
+
+      async fetchProductData() {
+        try {
+          const response = await fetch(`/products/${this.getProductHandle()}.js`);
+          const productData = await response.json();
+          this.variants = productData.variants;
+          this.updateAvailability();
+        } catch (error) {
+          console.error('Error fetching product data:', error);
+        }
+      }
+
+      getProductHandle() {
+        const urlParams = new URLSearchParams(window.location.search);
+        const variantParam = urlParams.get('variant');
+        
+        if (variantParam && this.variants.length > 0) {
+          const variant = this.variants.find(v => v.id == variantParam);
+          if (variant) return variant.product_handle;
+        }
+        
+        const pathParts = window.location.pathname.split('/');
+        const productIndex = pathParts.indexOf('products');
+        if (productIndex !== -1 && pathParts[productIndex + 1]) {
+          return pathParts[productIndex + 1];
+        }
+        
+        return '';
+      }
+
+      initializeSelectedOptions() {
+        const buttons = this.querySelectorAll('.ai-variant-picker__button-{{ ai_gen_id }}.selected');
+        buttons.forEach(button => {
+          const position = button.dataset.optionPosition;
+          const value = button.dataset.optionValue;
+          this.selectedOptions[position] = value;
+        });
+        
+        this.updateSelectedVariant();
+      }
+
+      setupEventListeners() {
+        const buttons = this.querySelectorAll('.ai-variant-picker__button-{{ ai_gen_id }}');
+        buttons.forEach(button => {
+          button.addEventListener('click', (e) => {
+            e.preventDefault();
+            this.handleOptionClick(button);
+          });
+        });
+      }
+
+      handleOptionClick(clickedButton) {
+        const position = clickedButton.dataset.optionPosition;
+        const value = clickedButton.dataset.optionValue;
+        
+        const optionButtons = this.querySelectorAll(
+          `.ai-variant-picker__button-{{ ai_gen_id }}[data-option-position="${position}"]`
+        );
+        optionButtons.forEach(btn => btn.classList.remove('selected'));
+        
+        clickedButton.classList.add('selected');
+        
+        this.selectedOptions[position] = value;
+        
+        this.updateSelectedVariant();
+        this.updateAvailability();
+      }
+
+      updateSelectedVariant() {
+        const selectedVariant = this.variants.find(variant => {
+          return variant.options.every((option, index) => {
+            return option === this.selectedOptions[String(index + 1)];
+          });
+        });
+
+        if (selectedVariant) {
+          this.updateVariantInput(selectedVariant.id);
+          this.dispatchVariantChangeEvent(selectedVariant);
+          this.updateURL(selectedVariant.id);
+        }
+      }
+
+      updateVariantInput(variantId) {
+        const form = document.querySelector(`#product-form-${this.sectionId}`);
+        if (!form) {
+          const allForms = document.querySelectorAll('form[action*="/cart/add"]');
+          allForms.forEach(f => {
+            const input = f.querySelector('input[name="id"]');
+            if (input) {
+              input.value = variantId;
+            }
+          });
+          return;
+        }
+
+        let variantInput = form.querySelector('input[name="id"]');
+        if (!variantInput) {
+          variantInput = document.createElement('input');
+          variantInput.type = 'hidden';
+          variantInput.name = 'id';
+          form.appendChild(variantInput);
+        }
+        variantInput.value = variantId;
+      }
+
+      dispatchVariantChangeEvent(variant) {
+        const event = new CustomEvent('variant:change', {
+          detail: {
+            variant: variant,
+            sectionId: this.sectionId
+          },
+          bubbles: true
+        });
+        this.dispatchEvent(event);
+        document.dispatchEvent(event);
+      }
+
+      updateURL(variantId) {
+        if (!window.history.replaceState) return;
+        
+        const url = new URL(window.location.href);
+        url.searchParams.set('variant', variantId);
+        window.history.replaceState({}, '', url.toString());
+      }
+
+      updateAvailability() {
+        if (this.variants.length === 0) return;
+
+        const buttons = this.querySelectorAll('.ai-variant-picker__button-{{ ai_gen_id }}');
+        
+        buttons.forEach(button => {
+          const position = button.dataset.optionPosition;
+          const value = button.dataset.optionValue;
+          
+          const testOptions = { ...this.selectedOptions };
+          testOptions[position] = value;
+          
+          const hasAvailableVariant = this.variants.some(variant => {
+            const matchesOptions = Object.keys(testOptions).every(pos => {
+              return variant.options[parseInt(pos) - 1] === testOptions[pos];
+            });
+            return matchesOptions && variant.available;
+          });
+          
+          if (!hasAvailableVariant) {
+            button.disabled = true;
+          } else {
+            button.disabled = false;
+          }
+        });
+      }
+    }
+
+    customElements.define('variant-picker-{{ ai_gen_id }}', VariantPicker{{ ai_gen_id }});
+  })();
+</script>
+
+{% schema %}
+{
+  "name": "Variant picker",
+  "settings": [
+    {
+      "type": "color_scheme",
+      "id": "color_scheme",
+      "label": "Color scheme",
+      "default": "scheme-1"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Variant picker"
+    }
+  ]
+}
+{% endschema %}

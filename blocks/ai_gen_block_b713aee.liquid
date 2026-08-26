@@ -1,0 +1,646 @@
+{% doc %}
+  @prompt
+    I would like to create a block that utilizes a full-screen hero image as the background. On top of that hero, I would like to create a shopping tile that allows me to have a headline, sub headline, body, and 6 bullets worth of text. I would like to be able to add custom icons as the bullet points. 
+    
+    , can I have it so i can select the dimensions of the hero image
+{% enddoc %}
+{% assign ai_gen_id = block.id | replace: '_', '' | downcase %}
+
+{% style %}
+  .ai-hero-shopping-tile-{{ ai_gen_id }} {
+    position: relative;
+    width: 100%;
+    {% if block.settings.hero_height_type == 'custom' %}
+      height: {{ block.settings.hero_height_desktop }}px;
+    {% else %}
+      min-height: 100vh;
+    {% endif %}
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+  }
+
+  .ai-hero-shopping-tile__background-{{ ai_gen_id }} {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 1;
+  }
+
+  .ai-hero-shopping-tile__background-{{ ai_gen_id }} img {
+    width: 100%;
+    height: 100%;
+    object-fit: {{ block.settings.image_fit }};
+    object-position: {{ block.settings.image_position }};
+  }
+
+  .ai-hero-shopping-tile__background-placeholder-{{ ai_gen_id }} {
+    width: 100%;
+    height: 100%;
+    background-color: #f4f4f4;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .ai-hero-shopping-tile__background-placeholder-{{ ai_gen_id }} svg {
+    width: 100%;
+    height: 100%;
+    max-width: 800px;
+    max-height: 600px;
+  }
+
+  .ai-hero-shopping-tile__overlay-{{ ai_gen_id }} {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: {{ block.settings.overlay_color }};
+    opacity: {{ block.settings.overlay_opacity }};
+    z-index: 2;
+  }
+
+  .ai-hero-shopping-tile__content-{{ ai_gen_id }} {
+    position: relative;
+    z-index: 3;
+    width: {{ block.settings.tile_width }}%;
+    max-width: 100%;
+    padding: {{ block.settings.tile_padding }}px;
+    background-color: {{ block.settings.tile_background_color }};
+    border-radius: {{ block.settings.tile_border_radius }}px;
+    box-shadow: 0 10px 40px rgba(0, 0, 0, {{ block.settings.tile_shadow_opacity }});
+    margin: 40px 20px;
+  }
+
+  .ai-hero-shopping-tile__headline-{{ ai_gen_id }} {
+    font-size: {{ block.settings.headline_size }}px;
+    color: {{ block.settings.headline_color }};
+    margin: 0 0 {{ block.settings.spacing_between_elements }}px;
+    line-height: 1.2;
+  }
+
+  .ai-hero-shopping-tile__subheadline-{{ ai_gen_id }} {
+    font-size: {{ block.settings.subheadline_size }}px;
+    color: {{ block.settings.subheadline_color }};
+    margin: 0 0 {{ block.settings.spacing_between_elements }}px;
+    line-height: 1.4;
+  }
+
+  .ai-hero-shopping-tile__body-{{ ai_gen_id }} {
+    font-size: {{ block.settings.body_size }}px;
+    color: {{ block.settings.body_color }};
+    margin: 0 0 {{ block.settings.spacing_between_elements }}px;
+    line-height: 1.6;
+  }
+
+  .ai-hero-shopping-tile__bullets-{{ ai_gen_id }} {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+  }
+
+  .ai-hero-shopping-tile__bullet-{{ ai_gen_id }} {
+    display: flex;
+    align-items: flex-start;
+    gap: {{ block.settings.bullet_icon_spacing }}px;
+    margin-bottom: {{ block.settings.bullet_spacing }}px;
+  }
+
+  .ai-hero-shopping-tile__bullet-{{ ai_gen_id }}:last-child {
+    margin-bottom: 0;
+  }
+
+  .ai-hero-shopping-tile__bullet-icon-{{ ai_gen_id }} {
+    flex-shrink: 0;
+    width: {{ block.settings.bullet_icon_size }}px;
+    height: {{ block.settings.bullet_icon_size }}px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-top: 2px;
+  }
+
+  .ai-hero-shopping-tile__bullet-icon-{{ ai_gen_id }} img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+  }
+
+  .ai-hero-shopping-tile__bullet-icon-placeholder-{{ ai_gen_id }} {
+    width: 100%;
+    height: 100%;
+    background-color: {{ block.settings.bullet_icon_placeholder_color }};
+    border-radius: 50%;
+  }
+
+  .ai-hero-shopping-tile__bullet-text-{{ ai_gen_id }} {
+    flex: 1;
+    font-size: {{ block.settings.bullet_text_size }}px;
+    color: {{ block.settings.bullet_text_color }};
+    line-height: 1.5;
+  }
+
+  @media screen and (max-width: 749px) {
+    .ai-hero-shopping-tile-{{ ai_gen_id }} {
+      {% if block.settings.hero_height_type == 'custom' %}
+        height: {{ block.settings.hero_height_mobile }}px;
+      {% else %}
+        min-height: 100vh;
+      {% endif %}
+    }
+
+    .ai-hero-shopping-tile__content-{{ ai_gen_id }} {
+      width: 90%;
+      padding: {{ block.settings.tile_padding | times: 0.7 }}px;
+    }
+
+    .ai-hero-shopping-tile__headline-{{ ai_gen_id }} {
+      font-size: {{ block.settings.headline_size | times: 0.7 }}px;
+    }
+
+    .ai-hero-shopping-tile__subheadline-{{ ai_gen_id }} {
+      font-size: {{ block.settings.subheadline_size | times: 0.8 }}px;
+    }
+
+    .ai-hero-shopping-tile__body-{{ ai_gen_id }} {
+      font-size: {{ block.settings.body_size | times: 0.9 }}px;
+    }
+
+    .ai-hero-shopping-tile__bullet-text-{{ ai_gen_id }} {
+      font-size: {{ block.settings.bullet_text_size | times: 0.9 }}px;
+    }
+  }
+{% endstyle %}
+
+<div class="ai-hero-shopping-tile-{{ ai_gen_id }}" {{ block.shopify_attributes }}>
+  <div class="ai-hero-shopping-tile__background-{{ ai_gen_id }}">
+    {% if block.settings.hero_image %}
+      <img
+        src="{{ block.settings.hero_image | image_url: width: 2400 }}"
+        alt="{{ block.settings.hero_image.alt | escape }}"
+        loading="lazy"
+        width="{{ block.settings.hero_image.width }}"
+        height="{{ block.settings.hero_image.height }}"
+      >
+    {% else %}
+      <div class="ai-hero-shopping-tile__background-placeholder-{{ ai_gen_id }}">
+        {{ 'hero-apparel-1' | placeholder_svg_tag }}
+      </div>
+    {% endif %}
+  </div>
+
+  <div class="ai-hero-shopping-tile__overlay-{{ ai_gen_id }}"></div>
+
+  <div class="ai-hero-shopping-tile__content-{{ ai_gen_id }}">
+    {% if block.settings.headline != blank %}
+      <h1 class="ai-hero-shopping-tile__headline-{{ ai_gen_id }}">{{ block.settings.headline }}</h1>
+    {% endif %}
+
+    {% if block.settings.subheadline != blank %}
+      <h2 class="ai-hero-shopping-tile__subheadline-{{ ai_gen_id }}">{{ block.settings.subheadline }}</h2>
+    {% endif %}
+
+    {% if block.settings.body != blank %}
+      <div class="ai-hero-shopping-tile__body-{{ ai_gen_id }}">{{ block.settings.body }}</div>
+    {% endif %}
+
+    <ul class="ai-hero-shopping-tile__bullets-{{ ai_gen_id }}">
+      {% for i in (1..6) %}
+        {% liquid
+          assign bullet_text_key = 'bullet_' | append: i | append: '_text'
+          assign bullet_icon_key = 'bullet_' | append: i | append: '_icon'
+          assign bullet_text = block.settings[bullet_text_key]
+          assign bullet_icon = block.settings[bullet_icon_key]
+        %}
+
+        {% if bullet_text != blank %}
+          <li class="ai-hero-shopping-tile__bullet-{{ ai_gen_id }}">
+            <div class="ai-hero-shopping-tile__bullet-icon-{{ ai_gen_id }}">
+              {% if bullet_icon %}
+                <img
+                  src="{{ bullet_icon | image_url: width: 100 }}"
+                  alt=""
+                  loading="lazy"
+                  width="100"
+                  height="100"
+                >
+              {% else %}
+                <div class="ai-hero-shopping-tile__bullet-icon-placeholder-{{ ai_gen_id }}"></div>
+              {% endif %}
+            </div>
+            <div class="ai-hero-shopping-tile__bullet-text-{{ ai_gen_id }}">{{ bullet_text }}</div>
+          </li>
+        {% endif %}
+      {% endfor %}
+    </ul>
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "Hero shopping tile",
+  "tag": null,
+  "settings": [
+    {
+      "type": "header",
+      "content": "Hero background"
+    },
+    {
+      "type": "image_picker",
+      "id": "hero_image",
+      "label": "Background image"
+    },
+    {
+      "type": "select",
+      "id": "hero_height_type",
+      "label": "Height",
+      "options": [
+        {
+          "value": "fullscreen",
+          "label": "Full screen"
+        },
+        {
+          "value": "custom",
+          "label": "Custom"
+        }
+      ],
+      "default": "fullscreen"
+    },
+    {
+      "type": "range",
+      "id": "hero_height_desktop",
+      "label": "Desktop height",
+      "min": 300,
+      "max": 1000,
+      "step": 50,
+      "unit": "px",
+      "default": 700
+    },
+    {
+      "type": "range",
+      "id": "hero_height_mobile",
+      "label": "Mobile height",
+      "min": 300,
+      "max": 800,
+      "step": 50,
+      "unit": "px",
+      "default": 500
+    },
+    {
+      "type": "select",
+      "id": "image_fit",
+      "label": "Image fit",
+      "options": [
+        {
+          "value": "cover",
+          "label": "Cover"
+        },
+        {
+          "value": "contain",
+          "label": "Contain"
+        },
+        {
+          "value": "fill",
+          "label": "Fill"
+        }
+      ],
+      "default": "cover"
+    },
+    {
+      "type": "select",
+      "id": "image_position",
+      "label": "Image position",
+      "options": [
+        {
+          "value": "center center",
+          "label": "Center"
+        },
+        {
+          "value": "top center",
+          "label": "Top"
+        },
+        {
+          "value": "bottom center",
+          "label": "Bottom"
+        },
+        {
+          "value": "center left",
+          "label": "Left"
+        },
+        {
+          "value": "center right",
+          "label": "Right"
+        }
+      ],
+      "default": "center center"
+    },
+    {
+      "type": "color",
+      "id": "overlay_color",
+      "label": "Overlay color",
+      "default": "#000000"
+    },
+    {
+      "type": "range",
+      "id": "overlay_opacity",
+      "label": "Overlay opacity",
+      "min": 0,
+      "max": 1,
+      "step": 0.1,
+      "default": 0.3
+    },
+    {
+      "type": "header",
+      "content": "Shopping tile"
+    },
+    {
+      "type": "range",
+      "id": "tile_width",
+      "label": "Tile width",
+      "min": 30,
+      "max": 90,
+      "step": 5,
+      "unit": "%",
+      "default": 50
+    },
+    {
+      "type": "color",
+      "id": "tile_background_color",
+      "label": "Background color",
+      "default": "#ffffff"
+    },
+    {
+      "type": "range",
+      "id": "tile_padding",
+      "label": "Padding",
+      "min": 20,
+      "max": 80,
+      "step": 5,
+      "unit": "px",
+      "default": 40
+    },
+    {
+      "type": "range",
+      "id": "tile_border_radius",
+      "label": "Border radius",
+      "min": 0,
+      "max": 40,
+      "step": 2,
+      "unit": "px",
+      "default": 8
+    },
+    {
+      "type": "range",
+      "id": "tile_shadow_opacity",
+      "label": "Shadow opacity",
+      "min": 0,
+      "max": 1,
+      "step": 0.1,
+      "default": 0.2
+    },
+    {
+      "type": "range",
+      "id": "spacing_between_elements",
+      "label": "Spacing between elements",
+      "min": 10,
+      "max": 40,
+      "step": 2,
+      "unit": "px",
+      "default": 20
+    },
+    {
+      "type": "header",
+      "content": "Headline"
+    },
+    {
+      "type": "text",
+      "id": "headline",
+      "label": "Headline",
+      "default": "Discover Our Collection"
+    },
+    {
+      "type": "range",
+      "id": "headline_size",
+      "label": "Font size",
+      "min": 20,
+      "max": 60,
+      "step": 2,
+      "unit": "px",
+      "default": 36
+    },
+    {
+      "type": "color",
+      "id": "headline_color",
+      "label": "Color",
+      "default": "#000000"
+    },
+    {
+      "type": "header",
+      "content": "Subheadline"
+    },
+    {
+      "type": "text",
+      "id": "subheadline",
+      "label": "Subheadline",
+      "default": "Premium quality products"
+    },
+    {
+      "type": "range",
+      "id": "subheadline_size",
+      "label": "Font size",
+      "min": 14,
+      "max": 40,
+      "step": 2,
+      "unit": "px",
+      "default": 24
+    },
+    {
+      "type": "color",
+      "id": "subheadline_color",
+      "label": "Color",
+      "default": "#333333"
+    },
+    {
+      "type": "header",
+      "content": "Body"
+    },
+    {
+      "type": "textarea",
+      "id": "body",
+      "label": "Body text",
+      "default": "Explore our carefully curated selection of products designed to enhance your lifestyle."
+    },
+    {
+      "type": "range",
+      "id": "body_size",
+      "label": "Font size",
+      "min": 12,
+      "max": 24,
+      "step": 1,
+      "unit": "px",
+      "default": 16
+    },
+    {
+      "type": "color",
+      "id": "body_color",
+      "label": "Color",
+      "default": "#666666"
+    },
+    {
+      "type": "header",
+      "content": "Bullet points"
+    },
+    {
+      "type": "range",
+      "id": "bullet_icon_size",
+      "label": "Icon size",
+      "min": 16,
+      "max": 48,
+      "step": 2,
+      "unit": "px",
+      "default": 24
+    },
+    {
+      "type": "range",
+      "id": "bullet_icon_spacing",
+      "label": "Icon spacing",
+      "min": 8,
+      "max": 24,
+      "step": 2,
+      "unit": "px",
+      "default": 12
+    },
+    {
+      "type": "range",
+      "id": "bullet_spacing",
+      "label": "Spacing between bullets",
+      "min": 8,
+      "max": 32,
+      "step": 2,
+      "unit": "px",
+      "default": 16
+    },
+    {
+      "type": "range",
+      "id": "bullet_text_size",
+      "label": "Text size",
+      "min": 12,
+      "max": 20,
+      "step": 1,
+      "unit": "px",
+      "default": 15
+    },
+    {
+      "type": "color",
+      "id": "bullet_text_color",
+      "label": "Text color",
+      "default": "#000000"
+    },
+    {
+      "type": "color",
+      "id": "bullet_icon_placeholder_color",
+      "label": "Icon placeholder color",
+      "default": "#c15045"
+    },
+    {
+      "type": "header",
+      "content": "Bullet 1"
+    },
+    {
+      "type": "image_picker",
+      "id": "bullet_1_icon",
+      "label": "Icon"
+    },
+    {
+      "type": "text",
+      "id": "bullet_1_text",
+      "label": "Text",
+      "default": "Free shipping on orders over $50"
+    },
+    {
+      "type": "header",
+      "content": "Bullet 2"
+    },
+    {
+      "type": "image_picker",
+      "id": "bullet_2_icon",
+      "label": "Icon"
+    },
+    {
+      "type": "text",
+      "id": "bullet_2_text",
+      "label": "Text",
+      "default": "30-day money-back guarantee"
+    },
+    {
+      "type": "header",
+      "content": "Bullet 3"
+    },
+    {
+      "type": "image_picker",
+      "id": "bullet_3_icon",
+      "label": "Icon"
+    },
+    {
+      "type": "text",
+      "id": "bullet_3_text",
+      "label": "Text",
+      "default": "Sustainably sourced materials"
+    },
+    {
+      "type": "header",
+      "content": "Bullet 4"
+    },
+    {
+      "type": "image_picker",
+      "id": "bullet_4_icon",
+      "label": "Icon"
+    },
+    {
+      "type": "text",
+      "id": "bullet_4_text",
+      "label": "Text",
+      "default": "Expert customer support"
+    },
+    {
+      "type": "header",
+      "content": "Bullet 5"
+    },
+    {
+      "type": "image_picker",
+      "id": "bullet_5_icon",
+      "label": "Icon"
+    },
+    {
+      "type": "text",
+      "id": "bullet_5_text",
+      "label": "Text",
+      "default": "Handcrafted with care"
+    },
+    {
+      "type": "header",
+      "content": "Bullet 6"
+    },
+    {
+      "type": "image_picker",
+      "id": "bullet_6_icon",
+      "label": "Icon"
+    },
+    {
+      "type": "text",
+      "id": "bullet_6_text",
+      "label": "Text",
+      "default": "Limited edition designs"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Hero shopping tile"
+    }
+  ]
+}
+{% endschema %}

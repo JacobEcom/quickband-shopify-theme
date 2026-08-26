@@ -1,0 +1,443 @@
+{% doc %}
+  @prompt
+    I want to create a top banner that is floating. All I want to be able to place in the banner is a logo at the center, and then have an account and a cart button on the top right. I want nothing else in this banner. I want this banner to have an invisible background that floats over the rest of my sections
+{% enddoc %}
+{% assign ai_gen_id = block.id | replace: '_', '' | downcase %}
+
+{% style %}
+  .ai-floating-banner-{{ ai_gen_id }} {
+    position: fixed;
+    top: {{ block.settings.top_spacing }}px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: {{ block.settings.desktop_width_percent }}%;
+    max-width: 100%;
+    z-index: 1000;
+    display: block;
+    padding: {{ block.settings.vertical_padding }}px {{ block.settings.horizontal_padding }}px;
+    background-color: {{ block.settings.background_color }};
+    backdrop-filter: blur({{ block.settings.blur_amount }}px);
+    border-radius: {{ block.settings.border_radius }}px;
+  }
+
+  .ai-floating-banner-container-{{ ai_gen_id }} {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+    position: relative;
+  }
+
+  .ai-floating-banner-left-{{ ai_gen_id }} {
+    flex: 1;
+  }
+
+  .ai-floating-banner-center-{{ ai_gen_id }} {
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .ai-floating-banner-logo-{{ ai_gen_id }} {
+    display: block;
+    max-height: {{ block.settings.logo_height }}px;
+    width: auto;
+  }
+
+  .ai-floating-banner-logo-placeholder-{{ ai_gen_id }} {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: {{ block.settings.logo_height | times: 2 }}px;
+    height: {{ block.settings.logo_height }}px;
+    background-color: rgba(0, 0, 0, 0.05);
+    border-radius: 4px;
+  }
+
+  .ai-floating-banner-logo-placeholder-{{ ai_gen_id }} svg {
+    width: 60%;
+    height: 60%;
+    opacity: 0.3;
+  }
+
+  .ai-floating-banner-right-{{ ai_gen_id }} {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    gap: {{ block.settings.icon_spacing }}px;
+  }
+
+  .ai-floating-banner-icon-{{ ai_gen_id }} {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: {{ block.settings.icon_size }}px;
+    height: {{ block.settings.icon_size }}px;
+    color: {{ block.settings.icon_color }};
+    text-decoration: none;
+    transition: color 0.3s ease;
+    position: relative;
+  }
+
+  .ai-floating-banner-icon-{{ ai_gen_id }}:hover {
+    color: {{ block.settings.icon_hover_color }};
+  }
+
+  .ai-floating-banner-icon-{{ ai_gen_id }} svg {
+    width: 100%;
+    height: 100%;
+  }
+
+  .ai-floating-banner-cart-count-{{ ai_gen_id }} {
+    position: absolute;
+    top: -4px;
+    right: -4px;
+    background-color: {{ block.settings.cart_badge_color }};
+    color: {{ block.settings.cart_badge_text_color }};
+    font-size: 10px;
+    font-weight: 600;
+    min-width: 16px;
+    height: 16px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0 4px;
+  }
+
+  @media screen and (max-width: 749px) {
+    .ai-floating-banner-{{ ai_gen_id }} {
+      width: calc(100% - {{ block.settings.mobile_side_margin | times: 2 }}px);
+      padding: {{ block.settings.mobile_vertical_padding }}px {{ block.settings.mobile_horizontal_padding }}px;
+    }
+
+    .ai-floating-banner-logo-{{ ai_gen_id }} {
+      max-height: {{ block.settings.mobile_logo_height }}px;
+    }
+
+    .ai-floating-banner-logo-placeholder-{{ ai_gen_id }} {
+      width: {{ block.settings.mobile_logo_height | times: 2 }}px;
+      height: {{ block.settings.mobile_logo_height }}px;
+    }
+
+    .ai-floating-banner-icon-{{ ai_gen_id }} {
+      width: {{ block.settings.mobile_icon_size }}px;
+      height: {{ block.settings.mobile_icon_size }}px;
+    }
+
+    .ai-floating-banner-right-{{ ai_gen_id }} {
+      gap: {{ block.settings.mobile_icon_spacing }}px;
+    }
+  }
+{% endstyle %}
+
+<floating-banner-{{ ai_gen_id }} class="ai-floating-banner-{{ ai_gen_id }}" {{ block.shopify_attributes }}>
+  <div class="ai-floating-banner-container-{{ ai_gen_id }}">
+    <div class="ai-floating-banner-left-{{ ai_gen_id }}"></div>
+
+    <div class="ai-floating-banner-center-{{ ai_gen_id }}">
+      {% if block.settings.logo %}
+        <img
+          src="{{ block.settings.logo | image_url: width: 400 }}"
+          alt="{{ shop.name }}"
+          class="ai-floating-banner-logo-{{ ai_gen_id }}"
+          loading="lazy"
+          width="{{ block.settings.logo.width }}"
+          height="{{ block.settings.logo.height }}"
+        >
+      {% else %}
+        <div class="ai-floating-banner-logo-placeholder-{{ ai_gen_id }}">
+          {{ 'image' | placeholder_svg_tag }}
+        </div>
+      {% endif %}
+    </div>
+
+    <div class="ai-floating-banner-right-{{ ai_gen_id }}">
+      <a href="/account" class="ai-floating-banner-icon-{{ ai_gen_id }}" aria-label="Account">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
+          <circle cx="12" cy="7" r="4"></circle>
+        </svg>
+      </a>
+
+      <a href="/cart" class="ai-floating-banner-icon-{{ ai_gen_id }}" aria-label="Cart">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <circle cx="9" cy="21" r="1"></circle>
+          <circle cx="20" cy="21" r="1"></circle>
+          <path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"></path>
+        </svg>
+        {% if cart.item_count > 0 %}
+          <span class="ai-floating-banner-cart-count-{{ ai_gen_id }}">{{ cart.item_count }}</span>
+        {% endif %}
+      </a>
+    </div>
+  </div>
+</floating-banner-{{ ai_gen_id }}>
+
+<script>
+  (function() {
+    class FloatingBanner{{ ai_gen_id }} extends HTMLElement {
+      constructor() {
+        super();
+      }
+
+      connectedCallback() {
+        this.setupScrollEffect();
+      }
+
+      setupScrollEffect() {
+        if (!{{ block.settings.hide_on_scroll | json }}) return;
+
+        let lastScrollTop = 0;
+        const banner = this;
+
+        window.addEventListener('scroll', function() {
+          const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+          
+          if (scrollTop > lastScrollTop && scrollTop > 100) {
+            banner.style.transform = 'translate(-50%, -150%)';
+            banner.style.transition = 'transform 0.3s ease';
+          } else {
+            banner.style.transform = 'translateX(-50%)';
+          }
+          
+          lastScrollTop = scrollTop;
+        });
+      }
+    }
+
+    customElements.define('floating-banner-{{ ai_gen_id }}', FloatingBanner{{ ai_gen_id }});
+  })();
+</script>
+
+{% schema %}
+{
+  "name": "Floating banner",
+  "settings": [
+    {
+      "type": "header",
+      "content": "Logo"
+    },
+    {
+      "type": "image_picker",
+      "id": "logo",
+      "label": "Logo image"
+    },
+    {
+      "type": "range",
+      "id": "logo_height",
+      "label": "Desktop logo height",
+      "min": 20,
+      "max": 100,
+      "step": 5,
+      "unit": "px",
+      "default": 40
+    },
+    {
+      "type": "range",
+      "id": "mobile_logo_height",
+      "label": "Mobile logo height",
+      "min": 20,
+      "max": 80,
+      "step": 5,
+      "unit": "px",
+      "default": 30
+    },
+    {
+      "type": "header",
+      "content": "Icons"
+    },
+    {
+      "type": "range",
+      "id": "icon_size",
+      "label": "Desktop icon size",
+      "min": 16,
+      "max": 40,
+      "step": 2,
+      "unit": "px",
+      "default": 24
+    },
+    {
+      "type": "range",
+      "id": "mobile_icon_size",
+      "label": "Mobile icon size",
+      "min": 16,
+      "max": 36,
+      "step": 2,
+      "unit": "px",
+      "default": 20
+    },
+    {
+      "type": "range",
+      "id": "icon_spacing",
+      "label": "Desktop icon spacing",
+      "min": 8,
+      "max": 40,
+      "step": 2,
+      "unit": "px",
+      "default": 16
+    },
+    {
+      "type": "range",
+      "id": "mobile_icon_spacing",
+      "label": "Mobile icon spacing",
+      "min": 8,
+      "max": 32,
+      "step": 2,
+      "unit": "px",
+      "default": 12
+    },
+    {
+      "type": "color",
+      "id": "icon_color",
+      "label": "Icon color",
+      "default": "#000000"
+    },
+    {
+      "type": "color",
+      "id": "icon_hover_color",
+      "label": "Icon hover color",
+      "default": "#666666"
+    },
+    {
+      "type": "header",
+      "content": "Cart badge"
+    },
+    {
+      "type": "color",
+      "id": "cart_badge_color",
+      "label": "Background color",
+      "default": "#c15045"
+    },
+    {
+      "type": "color",
+      "id": "cart_badge_text_color",
+      "label": "Text color",
+      "default": "#ffffff"
+    },
+    {
+      "type": "header",
+      "content": "Banner style"
+    },
+    {
+      "type": "color",
+      "id": "background_color",
+      "label": "Background color",
+      "default": "#ffffff00"
+    },
+    {
+      "type": "range",
+      "id": "blur_amount",
+      "label": "Background blur",
+      "min": 0,
+      "max": 20,
+      "step": 1,
+      "unit": "px",
+      "default": 10
+    },
+    {
+      "type": "range",
+      "id": "border_radius",
+      "label": "Border radius",
+      "min": 0,
+      "max": 50,
+      "step": 5,
+      "unit": "px",
+      "default": 0
+    },
+    {
+      "type": "range",
+      "id": "desktop_width_percent",
+      "label": "Desktop width",
+      "min": 50,
+      "max": 100,
+      "step": 5,
+      "unit": "%",
+      "default": 95
+    },
+    {
+      "type": "header",
+      "content": "Spacing"
+    },
+    {
+      "type": "range",
+      "id": "top_spacing",
+      "label": "Top spacing",
+      "min": 0,
+      "max": 50,
+      "step": 5,
+      "unit": "px",
+      "default": 20
+    },
+    {
+      "type": "range",
+      "id": "vertical_padding",
+      "label": "Desktop vertical padding",
+      "min": 8,
+      "max": 40,
+      "step": 2,
+      "unit": "px",
+      "default": 16
+    },
+    {
+      "type": "range",
+      "id": "horizontal_padding",
+      "label": "Desktop horizontal padding",
+      "min": 16,
+      "max": 60,
+      "step": 4,
+      "unit": "px",
+      "default": 32
+    },
+    {
+      "type": "range",
+      "id": "mobile_vertical_padding",
+      "label": "Mobile vertical padding",
+      "min": 8,
+      "max": 32,
+      "step": 2,
+      "unit": "px",
+      "default": 12
+    },
+    {
+      "type": "range",
+      "id": "mobile_horizontal_padding",
+      "label": "Mobile horizontal padding",
+      "min": 12,
+      "max": 40,
+      "step": 2,
+      "unit": "px",
+      "default": 16
+    },
+    {
+      "type": "range",
+      "id": "mobile_side_margin",
+      "label": "Mobile side margin",
+      "min": 0,
+      "max": 30,
+      "step": 5,
+      "unit": "px",
+      "default": 10
+    },
+    {
+      "type": "header",
+      "content": "Behavior"
+    },
+    {
+      "type": "checkbox",
+      "id": "hide_on_scroll",
+      "label": "Hide on scroll down",
+      "default": false
+    }
+  ],
+  "presets": [
+    {
+      "name": "Floating banner"
+    }
+  ]
+}
+{% endschema %}
