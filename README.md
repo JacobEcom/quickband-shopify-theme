@@ -194,11 +194,11 @@ We identified an opportunity to integrate that existing asset into the Shopify o
 
 The purchase experience presents:
 
-**Quick Bands Product**
+**QuickBand Product**
 
 and
 
-**Quick Bands + Digital Training Program**
+**QuickBand + Digital Training Program**
 
 directly inside the action area.
 
