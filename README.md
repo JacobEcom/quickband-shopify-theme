@@ -89,15 +89,15 @@ Instead of requiring the shopper to:
 
 the hero begins explaining the product immediately.
 
-**The objective was simple: reduce the time required to understand what makes Quick Bands different.**
+**The objective was simple: reduce the time required to understand what makes QuickBands different.**
 
-![Quick Bands Hero Education](docs/hero-education.jpg)
+![QuickBand Hero Education](docs/hero-education.jpg)
 
 ---
 
 # Premium Positioning From the First Impression
 
-Quick Bands needed to feel like legitimate fitness equipment rather than a novelty product.
+QuickBand needed to feel like legitimate fitness equipment rather than a novelty product.
 
 The hero therefore uses a darker, almost gritty gym environment and a strong female athlete.
 
@@ -128,7 +128,7 @@ The imagery focuses on practical differentiators including:
 - Ease of use
 - Adaptability across different customers and use cases
 
-![Quick Bands Product Section](docs/product-section.jpg)
+![QuickBand Product Section](docs/product-section.jpg)
 
 ## Testing Different Conversion Angles
 
