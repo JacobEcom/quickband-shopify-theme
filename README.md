@@ -27,11 +27,11 @@ Repository for QuickBand's One-Page Shopify Theme
 
 # The Opportunity
 
-Quick Bands started with a basic ecommerce experience that presented the product but did little to actively sell it.
+QuickBand suffered from an all-too-common ecommerce experience. Their Shopify presented the product but did very little to actively sell it.
 
 Product imagery was inconsistently formatted, crops felt awkward, social proof was largely absent, calls to action were weak or missing, and the experience lacked the emotional hooks needed to move shoppers from interest to action.
 
-The project also faced three larger business challenges.
+Above all, the project faced three larger business challenges.
 
 ## 1. Explain Something New — Fast
 
@@ -142,7 +142,7 @@ A second version used a more **medical / clinical framing**, emphasizing product
 
 The objective was to compare how different positioning strategies influenced conversion behavior rather than treating creative direction as a purely subjective design decision.
 
-**Creative wasn't just produced to look good. It was built to be tested.**
+**Creatives weren't just produced to look good. They we're built to test.**
 
 ![Quick Bands Use Cases](docs/use-case-stack.jpg)
 
@@ -160,7 +160,7 @@ They're also asking:
 
 **"Has anyone else actually tried this?"**
 
-Quick Bands had limited off-Amazon review history, so we integrated the same Amazon review-porting system used across our Shopify portfolio to bring existing marketplace proof into the DTC experience.
+QuickBand hadn't received reviews for their Shopify yet, but this social proof is critical, so we integrated a powerful, custom-built Amazon review-porting system that we developed to bring existing marketplace proof into the DTC experience.
 
 ![Amazon Review Proof](docs/amazon-review-proof.jpg)
 
@@ -278,7 +278,7 @@ Customers who continue all the way to the bottom of the experience encounter a f
 
 # Beyond the Stock Theme
 
-Quick Bands used Shopify as the foundation, but the conversion strategy dictated the experience.
+Quick Bands used Shopify's Ritual theme as the foundation, but the conversion strategy dictated the experience.
 
 Theme-level customization and purpose-built sections were used to support:
 
@@ -323,16 +323,6 @@ Theme customization · Purpose-built Shopify sections · Purchase-flow modificat
 
 ---
 
-# Project Status
-
-Quick Bands was created as a portfolio/gift build for the client.
-
-The Shopify storefront was not launched as the client's active production store and therefore has no attributed Shopify sales or conversion results.
-
-The preserved development version is maintained as a live portfolio environment so prospects can inspect the complete customer experience.
-
----
-
 # Technical Stack
 
 **Platform:** Shopify  
@@ -364,6 +354,8 @@ Conversion strategy determines whether customers care.
 ---
 
 ## Explore the Live Build
+
+The Live preview leads to a preserved development version that is maintained as a live portfolio environment so prospects can inspect the complete customer experience.
 
 **Shopify Preview:**  
 https://quickband-ihjfy7ss.myshopify.com/
