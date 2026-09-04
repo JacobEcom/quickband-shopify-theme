@@ -1,12 +1,12 @@
 # quickband-shopify-theme
 Repository for QuickBand's One-Page Shopify Theme
-# Quick Bands
+# QuickBand
 
 ## Introducing a New Product Category While Building Trust and Raising AOV
 
 **A conversion-focused Shopify build designed to explain a first-to-market product quickly, overcome new-product hesitation, and turn an existing digital asset into a higher-value offer.**
 
-![Quick Bands Shopify Store](docs/hero.jpg)
+![QuickBand Shopify Store](docs/hero.jpg)
 
 ### Live Shopify Preview
 
@@ -35,7 +35,7 @@ Above all, the project faced three larger business challenges.
 
 ## 1. Explain Something New — Fast
 
-Quick Bands was introducing a first-to-market product.
+QuickBand was introducing a first-to-market product.
 
 That meant customers couldn't be expected to immediately understand what made it different, why those differences mattered, or why they needed it.
 
@@ -240,7 +240,7 @@ It's to make the **preferred offer easier to recognize, understand, and choose.*
 
 # A Tight Conversion Journey
 
-Quick Bands was intentionally designed to avoid unnecessary page depth.
+QuickBand was intentionally designed to avoid unnecessary page depth.
 
 The primary journey is:
 
@@ -272,13 +272,13 @@ The primary journey is:
 
 Customers who continue all the way to the bottom of the experience encounter a final CTA directing them back toward the primary purchase area rather than leaving them at a dead end.
 
-![Quick Bands Final CTA](docs/final-cta.jpg)
+![QuickBand Final CTA](docs/final-cta.jpg)
 
 ---
 
 # Beyond the Stock Theme
 
-Quick Bands used Shopify's Ritual theme as the foundation, but the conversion strategy dictated the experience.
+QuickBand used Shopify's Ritual theme as the foundation, but the conversion strategy dictated the experience.
 
 Theme-level customization and purpose-built sections were used to support:
 
@@ -303,7 +303,7 @@ keep the experience clear, fast, and easy to understand.
 
 Product education, visual hierarchy, purchase options, and social proof needed to remain comprehensible on smaller screens without requiring customers to work harder to understand a new product.
 
-![Quick Bands Mobile Experience](docs/mobile.jpg)
+![QuickBand Mobile Experience](docs/mobile.jpg)
 
 ---
 
