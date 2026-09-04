@@ -6,32 +6,6 @@ Repository for QuickBand's One-Page Shopify Theme
 
 **A conversion-focused Shopify build designed to explain a first-to-market product quickly, overcome new-product hesitation, and turn an existing digital asset into a higher-value offer.**
 
-<!--
-SCREENSHOT 01 — HERO
-Filename: docs/hero.jpg
-
-CREATE:
-Wide-format portfolio composite.
-
-Ideally include:
-- Large desktop hero/storefront view
-- Smaller mobile PDP/storefront view
-- Close-up of the bundle purchase selector or social proof
-
-PURPOSE:
-The first visual should immediately communicate:
-- Premium
-- Modern
-- Fitness/performance oriented
-- More sophisticated than a stock Shopify theme
-
-A title inside this graphic is appropriate.
-
-Suggested title:
-QUICK BANDS
-Conversion-Focused Shopify Product Launch
--->
-
 ![Quick Bands Shopify Store](docs/hero.jpg)
 
 ### Live Shopify Preview
@@ -39,7 +13,7 @@ Conversion-Focused Shopify Product Launch
 **Store:** https://quickband-ihjfy7ss.myshopify.com/  
 **Password:** `loveey`
 
-> This storefront is maintained as a portfolio/demo environment and was not launched as the client's active production store.
+> This storefront is maintained as a portfolio/demo environment.
 
 | | |
 |---|---|
@@ -81,35 +55,6 @@ Simply improving conversion wasn't enough. The buying experience also needed to 
 
 became the foundation for the Shopify experience.
 
-<!--
-SCREENSHOT 02 — BEFORE / AFTER
-Filename: docs/before-after.jpg
-
-CREATE:
-Side-by-side comparison.
-
-LEFT:
-Original Quick Bands website.
-Choose a view demonstrating:
-- Poor image formatting/crops
-- Weak CTA hierarchy
-- Limited social proof
-- Basic presentation
-
-RIGHT:
-New Shopify experience.
-Prefer hero or first purchase section.
-
-Suggested labels:
-BEFORE
-SHOPIFY PORTFOLIO BUILD
-
-A title inside the image is appropriate.
-
-Suggested title:
-FROM PRODUCT PAGE TO CONVERSION EXPERIENCE
--->
-
 ![Quick Bands Before and After](docs/before-after.jpg)
 
 ---
@@ -146,25 +91,6 @@ the hero begins explaining the product immediately.
 
 **The objective was simple: reduce the time required to understand what makes Quick Bands different.**
 
-<!--
-SCREENSHOT 03 — HERO EDUCATION SYSTEM
-Filename: docs/hero-education.jpg
-
-CAPTURE:
-Full hero area at a size where the following are legible:
-- Primary product visual
-- Custom feature icons
-- Feature bullets
-- CTA if present
-
-Choose desktop unless mobile demonstrates the idea substantially better.
-
-PURPOSE:
-Show how the icons visually correlate features with the physical product.
-
-No extra title is required if the screenshot is self-explanatory.
--->
-
 ![Quick Bands Hero Education](docs/hero-education.jpg)
 
 ---
@@ -187,23 +113,6 @@ The experience is designed to feel:
 
 without becoming cold or sterile.
 
-<!--
-SCREENSHOT 04 — PREMIUM POSITIONING
-Filename: docs/premium-positioning.jpg
-
-CREATE OR CAPTURE:
-Hero image / opening presentation emphasizing:
-- Strong athlete
-- Dark gym environment
-- Product visibility
-- Premium positioning
-
-If SCREENSHOT 03 already shows this exceptionally well, this can be omitted.
-Do not add a redundant screenshot simply to fill space.
--->
-
-![Quick Bands Premium Positioning](docs/premium-positioning.jpg)
-
 ---
 
 # Show It in Use, Then Let Them Buy
@@ -219,51 +128,21 @@ The imagery focuses on practical differentiators including:
 - Ease of use
 - Adaptability across different customers and use cases
 
-One intentionally high-curiosity example demonstrates the product being used by a pregnant customer, reinforcing accessibility in a way a specification list couldn't.
-
-At this point, the shopper is already given an opportunity to purchase.
-
-<!--
-SCREENSHOT 05 — FIRST PRODUCT / PURCHASE SECTION
-Filename: docs/product-section.jpg
-
-CAPTURE:
-First major product purchase section.
-
-Try to include:
-- Amazon review pill / rating
-- Product imagery
-- Pricing
-- Purchase controls
-- First CTA / ATC
-
-PURPOSE:
-Demonstrate the transition:
-Education → proof → usage → purchase opportunity
-
-No title needed inside the image.
--->
-
 ![Quick Bands Product Section](docs/product-section.jpg)
 
-<!--
-SCREENSHOT 06 — USE CASE IMAGE STACK
-Filename: docs/use-case-stack.jpg
+## Testing Different Conversion Angles
 
-CREATE:
-Composite of the three key usage images.
+The image stack was also designed with experimentation in mind.
 
-Recommended sequence:
-1. Easy on/off
-2. Adjustability / practical use
-3. Pregnant customer / high-curiosity use case
+Rather than assuming one creative direction would resonate best with every shopper, we developed alternate image sequences around different conversion hypotheses.
 
-PURPOSE:
-Show how the product is explained visually without requiring large amounts of copy.
+One stack leaned more heavily into **women's use cases, pregnancy, accessibility, and everyday practicality**.
 
-A small title is appropriate:
-UNDERSTANDING THE PRODUCT THROUGH USE
--->
+A second version used a more **medical / clinical framing**, emphasizing product function, credibility, and a more technical interpretation of the same core benefits.
+
+The objective was to compare how different positioning strategies influenced conversion behavior rather than treating creative direction as a purely subjective design decision.
+
+**Creative wasn't just produced to look good. It was built to be tested.**
 
 ![Quick Bands Use Cases](docs/use-case-stack.jpg)
 
@@ -283,23 +162,6 @@ They're also asking:
 
 Quick Bands had limited off-Amazon review history, so we integrated the same Amazon review-porting system used across our Shopify portfolio to bring existing marketplace proof into the DTC experience.
 
-<!--
-SCREENSHOT 07 — AMAZON REVIEW PROOF
-Filename: docs/amazon-review-proof.jpg
-
-CAPTURE:
-Best Amazon review implementation on the Quick Bands page.
-
-Depending on the layout, this may be:
-- Review pill near purchase
-- Main review section
-- Review carousel
-
-Show enough page context that viewers understand the reviews are integrated into Shopify.
-
-No title needed.
--->
-
 ![Amazon Review Proof](docs/amazon-review-proof.jpg)
 
 ### Technical Repository
@@ -315,24 +177,6 @@ Marketplace reviews establish credibility.
 Visual transformations make the potential outcome tangible.
 
 Before-and-after case-study imagery is introduced before the larger review section so shoppers can see evidence of change before being asked to process a larger body of testimonials.
-
-<!--
-SCREENSHOT 08 — BEFORE / AFTER SOCIAL PROOF
-Filename: docs/transformation-proof.jpg
-
-CAPTURE:
-The strongest transformation/case-study section.
-
-Show:
-- Before image
-- After image
-- Any accompanying testimonial/context
-
-PURPOSE:
-Demonstrate social proof that goes beyond star ratings.
-
-No title needed if the section itself already contains one.
--->
 
 ![Quick Bands Transformation Proof](docs/transformation-proof.jpg)
 
@@ -367,31 +211,6 @@ The selected bundle receives a bright, high-contrast treatment, while the standa
 Customers remain free to choose either option.
 
 But the interface makes the higher-value offer the clearest default path.
-
-<!--
-SCREENSHOT 09 — AOV / BUNDLE SELECTOR
-Filename: docs/bundle-selector.jpg
-
-CAPTURE:
-Tight but contextual screenshot of the purchase selector.
-
-Must clearly show:
-- Product-only option
-- Product + Digital Training Program option
-- Bundle selected by default
-- Price
-- Strike-through price if present
-- Visual difference between selected and unselected states
-- Purchase action
-
-PURPOSE:
-This is one of the strongest CRO screenshots in the project.
-
-Show enough surrounding PDP context that it does not look like an isolated UI mockup.
-
-A small title inside the image is optional:
-DESIGNING THE DEFAULT AROUND HIGHER AOV
--->
 
 ![Quick Bands Bundle Selector](docs/bundle-selector.jpg)
 
@@ -453,21 +272,6 @@ The primary journey is:
 
 Customers who continue all the way to the bottom of the experience encounter a final CTA directing them back toward the primary purchase area rather than leaving them at a dead end.
 
-<!--
-SCREENSHOT 10 — FINAL CTA
-Filename: docs/final-cta.jpg
-
-CAPTURE:
-Bottom-of-page CTA.
-
-Include enough context to make clear this follows the social-proof sequence.
-
-PURPOSE:
-Show that the page concludes by directing high-intent scrollers back toward purchase.
-
-No title needed.
--->
-
 ![Quick Bands Final CTA](docs/final-cta.jpg)
 
 ---
@@ -498,26 +302,6 @@ The same principle applied to mobile:
 keep the experience clear, fast, and easy to understand.
 
 Product education, visual hierarchy, purchase options, and social proof needed to remain comprehensible on smaller screens without requiring customers to work harder to understand a new product.
-
-<!--
-SCREENSHOT 11 — MOBILE EXPERIENCE
-Filename: docs/mobile.jpg
-
-CREATE:
-Three mobile screenshots side-by-side.
-
-Recommended:
-1. Hero / feature education
-2. Purchase + bundle selector
-3. Social proof
-
-PURPOSE:
-Show that the main conversion architecture carries through to mobile.
-
-A title inside this composite is appropriate:
-
-QUICK BANDS — BUILT FOR MOBILE
--->
 
 ![Quick Bands Mobile Experience](docs/mobile.jpg)
 
@@ -552,54 +336,18 @@ The preserved development version is maintained as a live portfolio environment 
 # Technical Stack
 
 **Platform:** Shopify  
-**Base Theme:** `[JACOB — VERIFY THEME]`  
+**Base Theme:** `Ritual`  
 **Frontend:** Liquid · HTML · CSS · JavaScript  
 **Theme Work:** Theme customization · Purpose-built sections · Purchase-flow modifications  
-**Integration:** Custom Amazon Review Porting System
-
-<!--
-JACOB:
-
-Verify:
-- Base theme
-- Actual languages/architecture represented in the repository
-- Whether "purpose-built sections" is the most technically accurate description
-
-Avoid claiming hand-written custom modules where that would be misleading.
-The goal is to accurately show that the implementation goes beyond stock theme configuration.
--->
+**Development & Integration:** Custom Amazon Review Porting System
 
 ---
 
 # Featured Implementation
 
-For developers reviewing the project, these areas are good starting points:
-
-### Amazon Review Integration
+### Amazon Review Integration App
 
 [**View the Custom Amazon Review Porting System →**](https://github.com/JacobEcom/shopify-amazon-review-porting-system)
-
-### Fast-Path Hero / Feature Section
-
-`[JACOB — ADD CLICKABLE FILE PATH IF USEFUL]`
-
-### AOV-Focused Purchase Selector
-
-`[JACOB — ADD CLICKABLE FILE PATH IF USEFUL]`
-
-<!--
-JACOB:
-
-For the hero and purchase selector:
-
-Only link these if exposing the source adds useful technical credibility.
-
-Describe them as theme customization / purpose-built sections rather than implying they were authored entirely by hand.
-
-If the source comments make these less useful as portfolio proof, it is completely acceptable to omit the code links and let the live implementation + screenshots demonstrate the work.
-
-The Amazon Review Porting System should remain the primary technical showcase.
--->
 
 ---
 
@@ -624,32 +372,6 @@ https://quickband-ihjfy7ss.myshopify.com/
 
 <!--
 FINAL JACOB CHECKLIST
-
-1. Verify the Shopify base theme.
-
-2. Review all exported theme files before making the repository public.
-
-Check especially for:
-- Credentials
-- Tokens/API keys
-- Private configuration
-- App secrets
-- Client-sensitive information
-- settings_data.json
-- Anything that should not be published
-
-3. Verify the Technical Stack section.
-
-4. Decide whether the hero and bundle-selector source files strengthen the portfolio.
-
-Because portions of the implementation used Shopify-assisted development:
-- Do not imply every component was coded manually from scratch.
-- It is fine to describe them as theme customization, purpose-built sections, or modified purchase interactions.
-- Let the strategy and finished behavior carry the case study.
-
-5. Keep the Amazon Review Porting System as the primary custom technical proof.
-
-6. Add clickable source links only where they genuinely strengthen technical credibility.
 
 7. Verify every /docs filename and capitalization.
 
